@@ -1,0 +1,52 @@
+.navigation {
+    &__nav {
+        display: flex;
+        
+    }
+    &__list {
+        background-color: $color-white;
+        width: 100%;
+        display: inline-block;
+        margin-right: 17%;
+    } 
+    &__item{
+        margin-right: 2rem;
+        float: right;
+        list-style: none;
+        a{
+            text-decoration: none;
+            color: $color-gray;
+            margin: 0 auto;
+            font-size: 1rem;
+            display: block;
+            margin-top: 0.5rem;
+            &:hover,
+            &:active{
+                color:$color-black;
+            }
+        }
+        
+    }
+    &__home{
+        list-style: none;
+        float:left;
+        margin-left: 20%;
+        
+        a{
+            margin: 0 auto;
+            font-family: "Titillium Web", sans-serif;
+            color: darken($color-green,10%);
+            text-decoration: none;
+            font-size: 2rem;            
+            font-weight:bold;
+            position: relative;
+            display: block;
+            &:hover,
+            &:active{
+                color:darken($color-green,10%);
+            }
+           
+        }
+        
+    }
+}

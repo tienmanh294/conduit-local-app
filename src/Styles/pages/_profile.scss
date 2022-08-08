@@ -1,0 +1,98 @@
+.profileview{
+    &__banner{
+        height: 260px;
+        background-color: lighten($color-gray,40%);
+        text-align: center;
+        display: grid;
+        align-items: end;
+        align-content: center;
+        justify-content: center;
+        grid-template-columns: 70%;
+        grid-template-rows: 120px auto auto;
+        img{
+            width: 100px ;
+            height: 100px ;
+            border-radius: 100px;
+            justify-self: center;
+        }
+        h4{
+            text-align: center;
+            font-size: 1.5rem;
+            margin: 0;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        &__btn{
+            justify-self: end;
+            button{
+                font-size: 0.875rem;
+                color: lighten($color-gray,20%);
+                height: 25px;
+                &:hover,
+                &:active{
+                    background-color: lighten($color-gray,16%);;
+                }
+            }
+            
+            
+        }
+    }
+    &__link{
+        
+        &__list{
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding-left: 18%;
+        }
+        &__item{
+            height: 50px;
+            line-height: 50px;
+            padding-left: 10px;
+            padding-right: 10px;
+            a{
+                text-decoration: none;
+                top: 30%;
+                color: lighten($color-gray,30%);
+                &:hover,
+                &:active{
+                    color: $color-gray;
+                }
+            }
+            
+        }
+        &__itemactived{
+            height: 50px;
+            line-height: 50px;
+            border-style: solid;
+            border-width: 2px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-color: darken($color-green,20%);
+            padding-left: 10px;
+            padding-right: 10px;
+            a{
+                text-decoration: none;
+                top: 30%;
+                color: darken($color-green,20%);
+            }
+        }
+    }
+}
+
+.profile-avatar{
+    height: 100%;
+    width: 10%;
+    align-self: center;
+    justify-self: center;
+    padding: 0;
+    border-radius: 100px;
+    border-width: 0px;
+    img{
+        width: 100% ;
+        height: 100% ;
+        border-radius: 100px;
+        justify-self: center;
+    }
+}

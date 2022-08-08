@@ -1,0 +1,18 @@
+@mixin tag-item {
+  cursor: pointer;
+  float: left;
+  border-style: solid lighten($color-gray, 10%);;
+  border-width: 1px;
+  margin-right: 5px;
+  border-radius: 100px;
+  height: 17px;
+  background-color: lighten($color-gray, 10%);
+  padding: 5px;
+  margin-bottom: 3px;
+  color: $color-white;
+  &:hover,
+  &:active {
+    background-color: $color-gray;
+  }
+}
+

@@ -1,0 +1,87 @@
+.btn-feed {
+  position: relative;
+  width: 100px;
+  
+  
+  cursor: pointer;
+  &:hover,
+  &:active {
+    color: $color-gray;
+  }
+  &__active{
+    color: darken($color-green, 20%);
+    width: 100px;
+    border-style: solid;
+  border-width: 2px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+    cursor: pointer;
+  }
+  
+}
+.btn-tag {
+  color: darken($color-green, 20%);
+  border-style: solid;
+  border-width: 2px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: max-content;
+  float: right;
+  padding-left: 7px;
+  padding-right: 7px;
+}
+.btn-container {
+  display: flex;
+
+  width: 360px;
+  margin-left: 26.5%;
+  grid-column: 1;
+}
+.btn {
+  height: 40px;
+  text-align: center;
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center;
+}
+.upload__btn-valid{
+  font: inherit;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #8a2b06;
+  padding: 0.5rem 2rem;
+  border-radius: 25px;
+  margin-left: 1rem;
+  &:hover,
+  &:active {
+    background-color: #5a1a01;
+    border-color: #5a1a01;
+    color: white;
+  }
+}
+.upload__btn-notvalid{
+  font: inherit;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid $color-gray;
+  padding: 0.5rem 2rem;
+  border-radius: 25px;
+  margin-left: 1rem;
+}
+.button--alt{
+  font: inherit;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #8a2b06;
+  padding: 0.5rem 2rem;
+  border-radius: 25px;
+  margin-left: 1rem;
+  &:hover,
+  &:active {
+    background-color: #5a1a01;
+    border-color: #5a1a01;
+    color: white;
+  }
+}

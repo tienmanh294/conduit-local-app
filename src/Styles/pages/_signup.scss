@@ -1,0 +1,62 @@
+.signup {
+  width: 40%;
+  align-items: center;
+  margin-left: 30%;
+  &__form {
+    font-size: 20px;
+    padding: 1rem;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    text-align: center;
+    &__title {
+      text-align: center;
+    }
+  }
+  a {
+    text-align: center;
+    margin-left: 39%;
+    padding-bottom: 5px;
+    color: darken($color: $color-green, $amount: 20%);
+    text-decoration: none;
+    &:hover,
+    &:active {
+      text-decoration: underline solid
+        darken($color: $color-green, $amount: 20%);
+    }
+    font-size: 1.5rem;
+  }
+  &__control {
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+    input,
+    textarea {
+      padding: 1rem;
+      display: block;
+      font: inherit;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      width: 95%;
+      height: 100%;
+    }
+  }
+  &__actions {
+    margin-top: 1rem;
+    text-align: right;
+    button {
+      font: inherit;
+      cursor: pointer;
+      background-color: #16b931;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border: 1px solid #16b931;
+      border-radius: 4px;
+      font-weight: bold;
+      &:hover,
+      &:active {
+        background-color: #076d3d;
+        border-color: #076d3d;
+      }
+    }
+  }
+}

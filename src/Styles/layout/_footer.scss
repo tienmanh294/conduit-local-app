@@ -1,0 +1,21 @@
+.footer{
+    clear:both;
+    position: fixed;
+    width: 100%;
+    height: 3rem;
+    bottom: 0px;
+    left:0px;
+    background-color: lighten($color-gray,40%);
+    align-items: center;
+    &__container{
+        bottom:25%;
+        left:30%;
+        position: absolute;
+        text-align: center;
+        a{
+            color: darken($color-green,20%);
+            font-size: 1rem;
+            text-decoration: none;
+        }
+    }
+}

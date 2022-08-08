@@ -1,0 +1,164 @@
+.feed{
+    float:left;
+    width:70% ;
+    margin-left: 26.5%;
+    grid-row: 3;
+    &__list{
+        width: 100%;
+        padding-left: 0;
+        margin-top: 0;
+    }
+    &__item{
+        border-style: solid;
+        border-width: 1px;
+        border-color: lighten($color-gray,40%);
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+        list-style: none;
+        font-family: "Titillium Web", sans-serif;
+        font-size: 1rem;
+        font-weight:bold;
+        &__link{
+            text-decoration: none;
+            display: grid;
+            grid-template-columns: 1fr 30%;
+            h1{
+                color: $color-black;
+                
+            }
+            p{
+                color:lighten($color-gray,20%);
+                grid-row: 2;
+            }
+            span{
+                color:lighten($color-gray,20%);
+                grid-row: 3;
+            }
+            ul{
+                padding-left: 2px;
+                margin-top: 0;
+                margin-bottom: 0;
+                margin-right: 0px;
+                display: flex;
+                align-items: flex-end;
+                grid-row: 3;
+                justify-self: end;
+                li{
+                    width: max-content;
+                    list-style: none;
+                    border-style: solid;
+                    border-width: 1px;
+                    margin-right: 5px;
+                    border-radius: 100px;
+                    height: 17px;
+                    background-color: $color-white;
+                    padding:5px;
+                    margin-bottom: 3px;
+                    color: lighten($color-gray,20%);
+                }
+            }
+        }
+        &__btn{
+            grid-column: 3;
+            grid-row: 1;
+            display: flex;
+            width: max-content;
+            justify-self: end;
+            
+            button{
+                width: max-content;
+                height: 27px;
+                background-color: $color-white;
+                border-style: solid;
+                border-width: 1px;
+                border-radius: 3px;
+                border-color: darken($color-green,20%);
+                cursor: pointer;
+                span{
+                    color: darken($color-green,20%);
+                }
+                &:hover,
+                &:active{
+                    background-color: darken($color-green,20%);
+                    span{
+                        color: $color-white;
+                    }
+                    svg{
+                        color: $color-white;
+                    }
+                }
+            }
+            &__heart{
+                color: darken($color-green,20%);
+                margin-right: 2px;
+            }
+            
+        }
+        &__btnfavorited{
+            grid-column: 3;
+            grid-row: 1;
+            display: flex;
+            width: max-content;
+            justify-self: end;
+            
+            button{
+                width: max-content;
+                height: 27px;
+                background-color: darken($color-green,20%);
+                border-style: solid;
+                border-width: 1px;
+                border-radius: 3px;
+                border-color: darken($color-green,20%);
+                cursor: pointer;
+                span{
+                    color: $color-white;
+                }
+                &:hover,
+                &:active{
+                    background-color: darken($color-green,25%);
+                }
+                
+            }
+            &__heart{
+                color: $color-white;
+                margin-right: 2px;
+            }
+        }
+        &__meta{
+            display: grid;
+            grid-template-columns: 50px 1fr 10%;
+            grid-template-rows: 25px 25px;
+            margin-top: 5px;
+            span{
+                color:lighten($color-gray,20%);
+                font-size:15px;
+                
+            }
+            a{
+                color: darken($color-green,20%);
+                text-decoration: none;
+                &:hover,
+                &:active{
+                    text-decoration: underline darken($color-green,20%);
+                    
+                }
+
+            }
+            img{
+                grid-row: 1/span 2;
+                width: 100%;
+                height: 100%;
+                border-radius: 100px;
+            }
+        }
+    }
+}
+.feed-notification{
+    margin-top: 40px;
+    margin-left: 26.5%;
+}
+.my-feed-notification{
+    margin-top: 10px;
+    margin-left: 18.5%;
+}
