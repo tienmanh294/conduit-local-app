@@ -6,6 +6,7 @@ const useInput = validateValue => {
   const valueIsValid = validateValue(enteredValue);
   const hasError = !valueIsValid && isTouched;
   const valueChangeHandler = event => {
+    event.preventDefault();
     setEnteredValue(event.target.value);
   };
   const inputBlurHandler = () => {

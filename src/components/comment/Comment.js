@@ -23,7 +23,7 @@ const Comment = props => {
             key={comment._id}
             id={comment._id}
             body={comment.body}
-            author={comment.author.name}
+            author={comment.author}
             date={comment.createdAt}
             slug={props.slug}
           />

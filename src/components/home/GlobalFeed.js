@@ -1,58 +1,85 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-underscore-dangle */
-/* eslint-disable no-console */
-import React, { useState, useRef, useCallback } from 'react';
-import InfiniteArticleItem from './InfiniteArticleItem';
-import usePosts from '../../hooks/useArticles';
+import React, { useState } from 'react';
+import ArticleItem from '../article/ArticleItem';
+import { useGetArticlesQuery } from '../../api/articleApiSlice';
 
-function GlobalFeed() {
-  const [pageNum, setPageNum] = useState(0);
+const GlobalFeed = () => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const articlesPerPage = 10;
   const {
+    data: articles,
     isLoading,
+    isSuccess,
     isError,
     error,
-    results,
-    hasNextPage,
-  } = usePosts(pageNum);
-  const intObserver = useRef();
-  const lastPostRef = useCallback(post => {
-    if (isLoading) return;
-    if (intObserver.current) intObserver.current.disconnect();
-    intObserver.current = new IntersectionObserver(posts => {
-      if (posts[0].isIntersecting && hasNextPage) {
-        setPageNum(prev => prev + 1);
-      }
-    });
+  } = useGetArticlesQuery({ limit: articlesPerPage, skip: currentPage });
+  const handleNextPage = () => {
+    setCurrentPage(articlesPerPage + currentPage);
+  };
+  const handlePreviousPage = () => {
+    if (currentPage - articlesPerPage >= 0) {
+      setCurrentPage(currentPage - articlesPerPage);
+    }
+  };
+  let content;
+  if (isLoading) {
+    content = <p>Loading...</p>;
+  } else if (isSuccess) {
+    if (articles.articles.length !== 0 && articles) {
+      content = (
+        <div className="feed">
+          <ul className="feed__list">
+            {articles.articles.map(article => (
+              <ArticleItem
+                key={article._id}
+                id={article._id}
+                name={article.author.name}
+                description={article.description}
+                title={article.title}
+                date={article.createdAt}
+                favorites={article.favorites}
+                favoritedArray={article.favorited}
+                slug={article.slug}
+                tags={article.tags}
+                author={article.author}
+              />
+            ))}
+          </ul>
+          {currentPage !== 0 && (
+            <div>
+              <button onClick={() => handlePreviousPage()}>
+                Previous Page
+              </button>
+            </div>
+          )}
+          {articles.articles.length === articlesPerPage && (
+            <div>
+              <button onClick={() => handleNextPage()}>Next Page</button>
+            </div>
+          )}
+        </div>
+      );
+    } else {
+      content = (
+        <div className="feed-notification">
+          <div>No articles are here... yet.</div>
+          {currentPage !== 0 && (
+            <div>
+              <button onClick={() => handlePreviousPage()}>
+                Previous Page
+              </button>
+            </div>
+          )}
 
-    if (post) intObserver.current.observe(post);
-  }, [isLoading, hasNextPage]);
-  if (isError) return <p>{JSON.stringify(error)}</p>;
-
-  const content = results.map((article, i) => {
-    if (results.length === i + 1) {
-      return (
-        <InfiniteArticleItem
-          key={article._id}
-          article={article}
-          ref={lastPostRef}
-        />
+        </div>
       );
     }
-    return (
-      <InfiniteArticleItem
-        key={article._id}
-        article={article}
-      />
-    );
-  });
+  } else if (isError) {
+    content = <p>{JSON.stringify(error)}</p>;
+  }
 
-  return (
-    <div className="feed">
-      <ul className="feed__list">
-        {content}
-      </ul>
-    </div>
-  );
-}
+  return content;
+};
 
 export default GlobalFeed;

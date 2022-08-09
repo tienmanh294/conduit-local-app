@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/button-has-type */
-/* eslint-disable no-console */
 import { React, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Dropzone from 'react-dropzone';
@@ -10,6 +9,7 @@ function VideoArticleForm() {
   // const [create, { isLoading }] = useCreateArticleMutation();
   const [uploadVideo, { isLoading }] = useUploadSingleVideoMutation();
   const [videoData, setVideoData] = useState(null);
+  const [validVideo, setValidVideo] = useState(true);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
@@ -26,15 +26,21 @@ function VideoArticleForm() {
 
   const onDrop = files => {
     setVideoData(files[0]);
+    if (files[0] === undefined) {
+      setValidVideo(false);
+    }
+    setValidVideo(true);
   };
 
-  const formIsValid = videoData !== null;
+  const formIsValid = videoData !== null && !isLoading;
 
   return (
     <div className="new-article">
+      {!validVideo && <p className="validateVideo">Video limit is 100MB</p>}
+      {isLoading && <p>Uploading...</p>}
       <fieldset className="new-article__form">
         <div className="new-article__control">
-          {videoData !== null ? (
+          {videoData !== null && validVideo ? (
             <video width="400" controls>
               <source src={URL.createObjectURL(videoData)} />
               <track src="captions_en.vtt" kind="captions" srcLang="en" label="english_captions" />
@@ -43,7 +49,7 @@ function VideoArticleForm() {
             <Dropzone
               onDrop={onDrop}
               multiple={false}
-              maxSize={80000000}
+              maxSize={104857600}
             >
               {({ getRootProps, getInputProps }) => (
                 <section>

@@ -1,17 +1,17 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/prop-types */
-
-import { useState, React } from 'react';
+import { useState, React, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   useUpdateArticleMutation,
-
 } from '../../api/articleApiSlice';
+import useAuth from '../../hooks/useAuth';
 
 const isNotEmpty = value => value.trim() !== '';
 function EditArticleForm(props) {
   const { slug } = useParams();
-  const { title, about, content, tags } = props;
+  const { auth } = useAuth();
+  const { title, about, content, tags, author } = props;
   const [titleValue, setTitle] = useState(title);
   const [aboutValue, setAbout] = useState(about);
   const [contentValue, setContent] = useState(content);
@@ -28,7 +28,6 @@ function EditArticleForm(props) {
   const bodyInputIsValid = enteredBodyIsValid && enteredBodyTouched;
 
   const formIsValid = !!(titleInputIsValid && aboutInputIsValid && bodyInputIsValid);
-
   const navigate = useNavigate();
   const [update] = useUpdateArticleMutation(slug);
   const handleSubmit = async () => {
@@ -65,6 +64,11 @@ function EditArticleForm(props) {
   const handleBlurBody = () => {
     setEnteredBodyTouched(true);
   };
+  useEffect(() => {
+    if (auth.user.name !== author.name) {
+      navigate('/');
+    }
+  });
   return (
     <div className="new-article">
       <fieldset className="new-article__form">
@@ -77,7 +81,7 @@ function EditArticleForm(props) {
             onChange={titleInputHandleChange}
             onBlur={handleBlurTitle}
           />
-          {!titleInputIsValid && <p>Please enter a title</p>}
+          {!titleInputIsValid && <p className="validate">Please enter a title</p>}
         </div>
         <div className="new-article__control">
           <input
@@ -88,7 +92,7 @@ function EditArticleForm(props) {
             onChange={aboutInputHandleChange}
             onBlur={handleBlurAbout}
           />
-          {!aboutInputIsValid && <p>Please enter a description</p>}
+          {!aboutInputIsValid && <p className="validate">Please enter a description</p>}
         </div>
         <div className="new-article__control">
           <textarea
@@ -99,7 +103,7 @@ function EditArticleForm(props) {
             onChange={contentInputHandleChange}
             onBlur={handleBlurBody}
           />
-          {!bodyInputIsValid && <p>Please enter a content</p>}
+          {!bodyInputIsValid && <p className="validate">Please enter a content</p>}
         </div>
         <div className="new-article__control">
           <input

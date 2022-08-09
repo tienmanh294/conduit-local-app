@@ -22,6 +22,7 @@ const EditArticle = () => {
         about={article.description}
         content={article.body}
         tags={article.tags}
+        author={article.author}
       />
     );
   } else if (isError) {

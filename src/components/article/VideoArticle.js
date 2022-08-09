@@ -1,12 +1,14 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/prop-types */
+
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState, React } from 'react';
+import { useState, React, useEffect } from 'react';
 import { AdvancedVideo } from '@cloudinary/react';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { TiPlus } from 'react-icons/ti';
 import { BsFillSuitHeartFill } from 'react-icons/bs';
+import { Image } from 'cloudinary-react';
 import { nanoid } from '@reduxjs/toolkit';
 import { useDeleteArticleMutation, useAddToFavoritesMutation } from '../../api/articleApiSlice';
 import { useFollowUserMutation } from '../../api/userApiSlice';
@@ -32,6 +34,7 @@ function VideoArticle(props) {
   const [deleteArticle] = useDeleteArticleMutation();
   const [addToFavorited, { isLoading }] = useAddToFavoritesMutation();
   const [follow] = useFollowUserMutation();
+  const [myVideo, setMyVideo] = useState('');
   const [addcomment] = useAddCommentMutation(slug);
   const navigate = useNavigate();
   const buttonEditArticle = () => {
@@ -50,7 +53,8 @@ function VideoArticle(props) {
       navigate('/login');
     }
   };
-  const buttonPostComment = async () => {
+  const buttonPostComment = async e => {
+    e.preventDefault();
     const commentData = {
       body: commentValue,
     };
@@ -72,22 +76,23 @@ function VideoArticle(props) {
       navigate('/login');
     }
   };
-
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
-    },
-  });
-  const myVideo = cld.video(`conduit/${article.video}`);
+  useEffect(() => {
+    const cld = new Cloudinary({
+      cloud: {
+        cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
+      },
+    });
+    setMyVideo(cld.video(`conduit/${article.video}`));
+  }, []);
 
   const favorite = ` ( ${favoritesCount} )`;
   const formIsValid = !!(commentIsValid);
   return (
-    <div className="article-container">
-      <div className="article-container__banner">
+    <div className="video-container">
+      <div className="video-container__banner">
         <p>{article.title}</p>
-        <div className="article-container__banner__meta">
-          <img src="" alt=" " />
+        <div className="video-container__banner__meta">
+          <Image cloudName={`${process.env.REACT_APP_CLOUDINARY_NAME}`} publicId={author.url} />
           <a href={`/${article.author.name}`}>{article.author.name}</a>
           <span>
             {article.createdAt.slice(0, 10)}
@@ -96,22 +101,22 @@ function VideoArticle(props) {
             <div className="article-container__banner__meta__btn">
               <button
                 onClick={buttonEditArticle}
-                className="article-container__banner__meta__btn__edit"
+                className="video-container__banner__meta__btn__edit"
               >
                 Edit
               </button>
               <button
                 onClick={buttonDeleteArticle}
-                className="article-container__banner__meta__btn__delete"
+                className="video-container__banner__meta__btn__delete"
               >
                 Delete
               </button>
             </div>
           ) : (
-            <div className="article-container__banner__meta__btn">
+            <div className="video-container__banner__meta__btn">
               <button
                 onClick={buttonFollowUser}
-                className="article-container__banner__meta__btn__follow"
+                className="video-container__banner__meta__btn__follow"
               >
                 <TiPlus />
                 {auth?.user?.followings.includes(article.author._id) ? 'UnFollow ' : 'Follow '}
@@ -120,7 +125,7 @@ function VideoArticle(props) {
               </button>
               <button
                 onClick={buttonFavorites}
-                className={article.favorited.includes(auth?.user?.name) ? 'article-container__banner__meta__btn__favorite-active' : 'article-container__banner__meta__btn__favorite'}
+                className={article.favorited.includes(auth?.user?.name) ? 'video-container__banner__meta__btn__favorite-active' : 'video-container__banner__meta__btn__favorite'}
               >
                 <BsFillSuitHeartFill />
                 {article.favorited.includes(auth?.user?.name) ? 'Unfavorite ' : 'Favorite'}
@@ -131,7 +136,7 @@ function VideoArticle(props) {
         </div>
 
       </div>
-      <div className="article-container-video">
+      <div className="video-container-video">
         <AdvancedVideo cldVid={myVideo} controls />
         {article.tag !== 0 && (
           <ul>
@@ -142,14 +147,14 @@ function VideoArticle(props) {
         )}
       </div>
 
-      <div className="article-container__meta">
-        <img src="" alt=" " />
+      <div className="video-container__meta">
+        <Image cloudName={`${process.env.REACT_APP_CLOUDINARY_NAME}`} publicId={author.url} />
         <a href={`/${article.author.name}`}>{article.author.name}</a>
         <span>
           {article.createdAt.slice(0, 10)}
         </span>
         {auth?.user?.name === article.author.name ? (
-          <div className="article-container__meta__btn">
+          <div className="video-container__meta__btn">
             <div>
               <button onClick={buttonEditArticle}>
                 Edit
@@ -160,10 +165,10 @@ function VideoArticle(props) {
             </div>
           </div>
         ) : (
-          <div className="article-container__meta__btn">
+          <div className="video-container__meta__btn">
             <button
               onClick={buttonFollowUser}
-              className="article-container__banner__meta__btn__follow"
+              className="video-container__banner__meta__btn__follow"
             >
               <TiPlus />
               {auth?.user?.followings.includes(article.author._id) ? 'UnFollow ' : 'Follow '}
@@ -172,7 +177,7 @@ function VideoArticle(props) {
             </button>
             <button
               onClick={buttonFavorites}
-              className={article.favorited.includes(auth?.user?.name) ? 'article-container__banner__meta__btn__favorite-active' : 'article-container__banner__meta__btn__favorite'}
+              className={article.favorited.includes(auth?.user?.name) ? 'video-container__banner__meta__btn__favorite-active' : 'video-container__banner__meta__btn__favorite'}
             >
               <BsFillSuitHeartFill />
               {article.favorited.includes(auth?.user?.name) ? 'Unfavorite ' : 'Favorite'}
@@ -181,10 +186,10 @@ function VideoArticle(props) {
           </div>
         )}
       </div>
-      <div className="article-container__comment-container">
+      <div className="video-container__comment-container">
         {auth.accessToken ? (
-          <div className="article-container__comment-container__comment">
-            <div className="article-container__comment-container__comment__post">
+          <div className="video-container__comment-container__comment">
+            <div className="video-container__comment-container__comment__post">
               <textarea
                 id="description"
                 required
@@ -196,9 +201,9 @@ function VideoArticle(props) {
               />
               {commentHasError && <p>Please enter a comment</p>}
             </div>
-            <div className="article-container__comment-container__comment__row-2">
-              <img src="" alt=" " />
-              <div className={formIsValid ? 'article-container__comment-container__comment__row-2__btn-valid' : 'article-container__comment-container__comment__row-2__btn-notvalid'}>
+            <div className="video-container__comment-container__comment__row-2">
+              <Image cloudName={`${process.env.REACT_APP_CLOUDINARY_NAME}`} publicId={author.url} />
+              <div className={formIsValid ? 'video-container__comment-container__comment__row-2__btn-valid' : 'video-container__comment-container__comment__row-2__btn-notvalid'}>
                 <button
                   onClick={buttonPostComment}
                   disabled={!formIsValid}
@@ -209,7 +214,7 @@ function VideoArticle(props) {
             </div>
           </div>
         ) : (
-          <div className="article-container__comment-container__comment">Login to post comment</div>
+          <div className="video-container__comment-container__comment">Login to post comment</div>
         )}
         <Comment slug={article.slug} />
       </div>

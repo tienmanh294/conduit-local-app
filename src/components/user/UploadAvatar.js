@@ -4,22 +4,30 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/function-component-definition */
-/* eslint-disable no-console */
 import { React, useState } from 'react';
 import Dropzone from 'react-dropzone';
+import { useDispatch } from 'react-redux';
+import { userActions } from '../../store/user-slice';
 import Modal from '../Modal';
 import { useUploadImageMutation } from '../../api/userApiSlice';
-import classes from './Upload.module.css';
+import useAuth from '../../hooks/useAuth';
 
 const UploadAvatar = props => {
   const { onClose } = props;
+  const { setAuth, auth } = useAuth();
+  const { accessToken } = auth;
   const [imageData, setImageData] = useState(null);
   const [previewSource, setPreviewSource] = useState('');
   const [upload, { isLoading }] = useUploadImageMutation();
+  const dispatch = useDispatch();
   const handleUpload = async e => {
     const formData = new FormData();
     formData.append('avatar', imageData);
-    await upload(formData);
+    const userData = await upload(formData).unwrap();
+    const user = userData;
+    const roles = Object.values(userData.roles);
+    dispatch(userActions.setCredentials({ ...userData, accessToken }));
+    setAuth({ user, accessToken, roles });
     onClose();
   };
   const previewFile = file => {
@@ -59,8 +67,8 @@ const UploadAvatar = props => {
         </Dropzone>
       )}
       <div>
-        <button className="button--alt" onClick={() => onClose()}>Close</button>
-        <button className={isLoading ? 'new-article__btn-notvalid' : 'upload__btn-valid'} onClick={handleUpload} disabled={isLoading}>
+        <button className={isLoading ? 'upload__btn-notvalid' : 'upload__btn-valid'} onClick={() => onClose()} disabled={isLoading}>Close</button>
+        <button className={isLoading ? 'upload__btn-notvalid' : 'upload__btn-valid'} onClick={handleUpload} disabled={isLoading}>
           Upload
         </button>
       </div>

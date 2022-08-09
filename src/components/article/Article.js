@@ -1,11 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/prop-types */
-
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, React } from 'react';
 import { TiPlus } from 'react-icons/ti';
 import { BsFillSuitHeartFill } from 'react-icons/bs';
+import { Image } from 'cloudinary-react';
 import { nanoid } from '@reduxjs/toolkit';
 import { useDeleteArticleMutation, useAddToFavoritesMutation } from '../../api/articleApiSlice';
 import { useFollowUserMutation } from '../../api/userApiSlice';
@@ -78,7 +78,7 @@ function Article(props) {
       <div className="article-container__banner">
         <p>{article.title}</p>
         <div className="article-container__banner__meta">
-          <img src="" alt=" " />
+          <Image cloudName={`${process.env.REACT_APP_CLOUDINARY_NAME}`} publicId={author.url} />
           <a href={`/${article.author.name}`}>{article.author.name}</a>
           <span>
             {article.createdAt.slice(0, 10)}
@@ -134,7 +134,7 @@ function Article(props) {
       </div>
 
       <div className="article-container__meta">
-        <img src="" alt=" " />
+        <Image cloudName={`${process.env.REACT_APP_CLOUDINARY_NAME}`} publicId={author.url} />
         <a href={`/${article.author.name}`}>{article.author.name}</a>
         <span>
           {article.createdAt.slice(0, 10)}
@@ -188,7 +188,7 @@ function Article(props) {
               {commentHasError && <p>Please enter a comment</p>}
             </div>
             <div className="article-container__comment-container__comment__row-2">
-              <img src="" alt=" " />
+              <Image cloudName={`${process.env.REACT_APP_CLOUDINARY_NAME}`} publicId={author.url} />
               <div className={formIsValid ? 'article-container__comment-container__comment__row-2__btn-valid' : 'article-container__comment-container__comment__row-2__btn-notvalid'}>
                 <button
                   onClick={buttonPostComment}

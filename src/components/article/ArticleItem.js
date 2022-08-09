@@ -2,6 +2,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable no-console */
 import { useState, React } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
@@ -34,7 +35,7 @@ function ArticleItem(props) {
   return (
     <li className="feed__item">
       <div className="feed__item__meta">
-        <Image cloudName="djvvdjhel" publicId={author.url} />
+        <Image cloudName={`${process.env.REACT_APP_CLOUDINARY_NAME}`} publicId={author.url} />
         <a href={`/${name}`}>{name}</a>
         <span>
           {date.slice(0, 10)}

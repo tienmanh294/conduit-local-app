@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-underscore-dangle */
 import { useState, React } from 'react';
@@ -27,7 +26,7 @@ const MyFeed = () => {
   if (isLoading) {
     content = <p>Loading...</p>;
   } else if (isSuccess) {
-    if (articles.articles.length !== 0) {
+    if (articles.articles.length !== 0 && articles) {
       content = (
         <div className="feed">
           <ul className="feed__list">

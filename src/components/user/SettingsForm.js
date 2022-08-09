@@ -105,11 +105,12 @@ function SettingsForm() {
             id="email"
             ref={emailInputRef}
             defaultValue={user.email}
+            readOnly
           />
         </div>
         <div className="setting-container__control">
           <input
-            type="text"
+            type="password"
             required
             id="password"
             ref={passwordInputRef}

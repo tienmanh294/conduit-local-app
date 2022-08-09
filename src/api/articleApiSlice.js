@@ -18,7 +18,7 @@ export const articlesApiSlice = apiSlice.injectEndpoints({
     getArticle: builder.query({
       query: id => `/article/${id}`,
       providesTags: ['Article'],
-      keepUnusedDataFor: 60 * 5,
+      keepUnusedDataFor: 60 * 60,
     }),
     getUsernameArticles: builder.query({
       query: param =>
@@ -30,7 +30,7 @@ export const articlesApiSlice = apiSlice.injectEndpoints({
           ...article._id,
         })),
       ],
-      keepUnusedDataFor: 60 * 5,
+      keepUnusedDataFor: 60 * 60,
     }),
     getFavoritesArticles: builder.query({
       query: param =>
@@ -42,7 +42,7 @@ export const articlesApiSlice = apiSlice.injectEndpoints({
           ...article._id,
         })),
       ],
-      keepUnusedDataFor: 60 * 5,
+      keepUnusedDataFor: 60 * 60,
     }),
     getArticleByTag: builder.query({
       query: param =>
@@ -54,18 +54,18 @@ export const articlesApiSlice = apiSlice.injectEndpoints({
           ...article._id,
         })),
       ],
-      keepUnusedDataFor: 60 * 5,
+      keepUnusedDataFor: 60 * 60,
     }),
     getFollowArticles: builder.query({
       query: param =>
         `/articles/follows?limit=${param.limit}&skip=${param.skip}`,
       providesTags: ['Follows'],
-      keepUnusedDataFor: 60 * 5,
+      keepUnusedDataFor: 60 * 60,
     }),
     getTags: builder.query({
       query: () => '/tags',
       providesTags: ['Tag'],
-      keepUnusedDataFor: 60 * 5,
+      keepUnusedDataFor: 60 * 60,
     }),
     updateArticle: builder.mutation({
       query: data => ({
@@ -102,6 +102,7 @@ export const articlesApiSlice = apiSlice.injectEndpoints({
         { type: 'Favorites', id: 'LIST' },
         { type: 'Articles', id: 'LIST' },
         { type: 'Article' },
+        { type: 'Follows' },
       ],
     }),
 
@@ -122,6 +123,7 @@ export const articlesApiSlice = apiSlice.injectEndpoints({
           body: data,
         };
       },
+      invalidatesTags: [{ type: 'Articles', id: 'LIST' }, { type: 'Tag' }],
     }),
   }),
 });

@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/button-has-type */
-/* eslint-disable no-console */
 import { React } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCreateArticleMutation } from '../../api/articleApiSlice';

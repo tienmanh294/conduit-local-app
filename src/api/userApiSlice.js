@@ -5,12 +5,12 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     getUser: builder.query({
       query: () => '/users/me',
       providesTags: ['Me'],
-      keepUnusedDataFor: 60 * 5,
+      keepUnusedDataFor: 60 * 60 * 24,
     }),
     getUserByName: builder.query({
       query: id => `/users/${id}`,
       providesTags: ['User'],
-      keepUnusedDataFor: 60 * 5,
+      keepUnusedDataFor: 60 * 60 * 24,
     }),
     logoutUser: builder.mutation({
       query: () => ({
@@ -48,7 +48,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
-      invalidatesTags: [{ type: 'Follows' }, { type: 'User' }, { type: 'Articles', id: 'LIST' }],
+      invalidatesTags: [{ type: 'Follows' }, { type: 'User' }, { type: 'Articles', id: 'LIST' }, { type: 'Comments', id: 'LIST' }],
     }),
   }),
 });

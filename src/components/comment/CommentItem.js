@@ -2,6 +2,7 @@
 /* eslint-disable arrow-parens */
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { Image } from 'cloudinary-react';
 import { useDeleteCommentMutation } from '../../api/commentApiSlice';
 
 function CommentItem(props) {
@@ -15,8 +16,8 @@ function CommentItem(props) {
       <div className="comment-item">
         <p>{body}</p>
         <div className="comment-item__infor">
-          <img src="" alt=" " />
-          <a href={`/${author}`}>{author}</a>
+          <Image cloudName={`${process.env.REACT_APP_CLOUDINARY_NAME}`} publicId={author.url} />
+          <a href={`/${author.name}`}>{author.name}</a>
           <span>{date.slice(0, 10)}</span>
           <span>{date.slice(-13, -5)}</span>
         </div>
