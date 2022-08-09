@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/button-has-type */
+/* eslint-disable no-console */
 import { React, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Dropzone from 'react-dropzone';
@@ -28,8 +29,9 @@ function VideoArticleForm() {
     setVideoData(files[0]);
     if (files[0] === undefined) {
       setValidVideo(false);
+    } else {
+      setValidVideo(true);
     }
-    setValidVideo(true);
   };
 
   const formIsValid = videoData !== null && !isLoading;
