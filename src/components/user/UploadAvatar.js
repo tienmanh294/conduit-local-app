@@ -24,11 +24,11 @@ const UploadAvatar = props => {
     const formData = new FormData();
     formData.append('avatar', imageData);
     const userData = await upload(formData).unwrap();
+    onClose();
     const user = userData;
     const roles = Object.values(userData.roles);
     dispatch(userActions.setCredentials({ ...userData, accessToken }));
     setAuth({ user, accessToken, roles });
-    onClose();
   };
   const previewFile = file => {
     const reader = new FileReader();

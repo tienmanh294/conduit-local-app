@@ -123,7 +123,7 @@ function Article(props) {
 
       </div>
       <div className="article-container__content">
-        <div>{article.body}</div>
+        <p>{article.body}</p>
         {article.tag !== 0 && (
           <ul>
             {article.tags.map(tag => (

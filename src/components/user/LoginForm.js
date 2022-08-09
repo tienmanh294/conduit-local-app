@@ -78,8 +78,8 @@ function LoginForm() {
         setErrMsg('No Server Response');
       } else if (err.status === 400) {
         setErrMsg('Username or Password is Wrong');
-      } else if (err.status === 401) {
-        setErrMsg('Unauthorized');
+      } else if (err.status === 404) {
+        setErrMsg('Email not exist!');
       } else {
         setErrMsg('Login Failed');
       }
