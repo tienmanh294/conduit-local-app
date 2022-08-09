@@ -108,7 +108,7 @@ function AddArticleForm() {
           />
         </div>
         <div className={formIsValid && !isLoading ? 'new-article__btn-valid' : 'new-article__btn-notvalid'}>
-          <button onClick={handleSubmit} disabled={!formIsValid && !isLoading}>Publish Article</button>
+          <button onClick={handleSubmit} disabled={!formIsValid && isLoading}>Publish Article</button>
         </div>
       </fieldset>
     </div>

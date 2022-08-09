@@ -30,7 +30,7 @@ const MyArticles = () => {
   };
   let content;
   if (isLoading) {
-    content = <p>Loading...</p>;
+    content = <p className="Loading">Loading...</p>;
   } else if (isSuccess) {
     if (articles.articles.length !== 0) {
       content = (
