@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/button-has-type */
-import { React } from 'react';
+import { React,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCreateArticleMutation } from '../../api/articleApiSlice';
 import useInput from '../../hooks/use-input';
@@ -8,6 +8,7 @@ import useInput from '../../hooks/use-input';
 const isNotEmpty = value => value.trim() !== '';
 function AddArticleForm() {
   const [create, { isLoading }] = useCreateArticleMutation();
+  const [error,setErr]=useState('');
   const {
     value: titleValue,
     isValid: titleIsValid,
@@ -49,16 +50,22 @@ function AddArticleForm() {
       tags: tagList,
     };
     const slug = titleValue.replace(/<[^>]*>|[^a-zA-Z0-9 ]/g,'-').replace(/ /g, '-');
-    await create(articleData).unwrap();
-    if (!isLoading) {
-      navigate(`/article/${slug}`);
+    try {
+      await create(articleData).unwrap();
+      if (!isLoading) {
+        navigate(`/article/${slug}`);
+      }
+    } catch (err) {
+      setErr(err.data);
     }
+    
   };
 
   const formIsValid = !!(titleIsValid && aboutIsValid && contentIsValid);
 
   return (
     <div className="new-article">
+      {error!==''&&<p className='errmsg'>{error}</p>}
       <fieldset className="new-article__form">
         <div className="new-article__control">
           <input
