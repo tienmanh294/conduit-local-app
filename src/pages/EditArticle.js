@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import EditArticleForm from '../components/article/EditArticleForm';
+import Missing from './Missing';
 import { useGetArticleQuery } from '../api/articleApiSlice';
 
 const EditArticle = () => {
@@ -10,7 +11,6 @@ const EditArticle = () => {
     isLoading,
     isSuccess,
     isError,
-    error,
   } = useGetArticleQuery(slug);
   let content;
   if (isLoading) {
@@ -26,7 +26,7 @@ const EditArticle = () => {
       />
     );
   } else if (isError) {
-    content = <p>{JSON.stringify(error)}</p>;
+    content = <Missing/>;
   }
 
   return content;

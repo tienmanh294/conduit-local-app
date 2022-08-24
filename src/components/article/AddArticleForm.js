@@ -48,7 +48,7 @@ function AddArticleForm() {
       body: contentValue,
       tags: tagList,
     };
-    const slug = titleValue.replace(/ /g, '-');
+    const slug = titleValue.replace(/<[^>]*>|[^a-zA-Z0-9 ]/g,'-').replace(/ /g, '-');
     await create(articleData).unwrap();
     if (!isLoading) {
       navigate(`/article/${slug}`);

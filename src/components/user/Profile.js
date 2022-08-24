@@ -14,7 +14,9 @@ import { TiPlus } from 'react-icons/ti';
 import MyArticles from '../article/MyArticles';
 import UploadAvatar from './UploadAvatar';
 import FavoritesArticles from '../article/FavoritesArticles';
+import Missing from '../../pages/Missing';
 import { useGetUserByNameQuery, useFollowUserMutation } from '../../api/userApiSlice';
+
 
 import useAuth from '../../hooks/useAuth';
 
@@ -25,7 +27,6 @@ const Profile = () => {
     isLoading,
     isSuccess,
     isError,
-    error,
   } = useGetUserByNameQuery(userID);
   const [follow] = useFollowUserMutation();
   const [tab, setTab] = useState(1);
@@ -110,7 +111,7 @@ const Profile = () => {
       </section>
     );
   } else if (isError) {
-    content = <p>{JSON.stringify(error)}</p>;
+    content = <Missing/>;
   }
 
   return content;

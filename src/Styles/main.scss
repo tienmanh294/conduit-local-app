@@ -16,6 +16,7 @@
 @import "components/div-video";
 @import "components/modal";
 @import "components/errMsg";
+@import "components/loader";
 
 @import "layout/footer";
 @import "layout/grid";
@@ -31,4 +32,5 @@
 @import "pages/article";
 @import "pages/signin";
 @import "pages/signup";
-@import "pages/video"
+@import "pages/video";
+@import "pages/missing";

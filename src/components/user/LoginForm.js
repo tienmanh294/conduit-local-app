@@ -33,7 +33,7 @@ const isEmail = value => {
 axios.defaults.withCredentials = true;
 
 function LoginForm() {
-  const { setAuth, persist, setPersist } = useAuth();
+  const { setAuth, setPersist } = useAuth();
   const {
     value: emailValue,
     isValid: emailIsValid,
@@ -72,6 +72,7 @@ function LoginForm() {
       resetPassword();
       navigate('/');
       setPersist(prev => !prev);
+      
     } catch (err) {
       if (!err?.status) {
         // isLoading: true until timeout occurs
@@ -87,9 +88,6 @@ function LoginForm() {
     }
   };
   const formIsValid = !!(emailIsValid && passwordIsValid);
-  useEffect(() => {
-    localStorage.setItem('persist', persist);
-  }, []);
   const content = isLoading ? (
     <h1>Loading...</h1>
   ) : (

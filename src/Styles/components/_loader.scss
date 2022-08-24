@@ -1,0 +1,63 @@
+.loader {
+    margin: auto;
+    border: 20px solid #EAF0F6;
+    border-radius: 50%;
+    border-top: 20px solid $color-green;
+    width: 100px;
+    height: 100px;
+    animation: spinner 4s linear infinite;
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader-backdrop {
+    position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 20;
+  background-color: white;
+  }
+  
+  .modal-loader {
+    position: fixed;
+    top: 20vh;
+    left: 5%;
+    width: 90%;
+    padding: 1rem;
+    z-index: 30;
+    animation: slide-down 300ms ease-out forwards;
+  }
+  .loader-content {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    gap: 10px;
+  }
+  @media (min-width: 768px) {
+    .modal {
+      width: 40rem;
+      left: calc(50% - 20rem);
+    }
+  }
+  
+  @keyframes slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-3rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

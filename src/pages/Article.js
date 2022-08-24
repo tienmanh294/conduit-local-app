@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import Article from '../components/article/Article';
 import VideoArticle from '../components/article/VideoArticle';
+import Missing from './Missing';
 import { useGetArticleQuery } from '../api/articleApiSlice';
 
 const ArticlePage = () => {
@@ -11,7 +12,6 @@ const ArticlePage = () => {
     isLoading,
     isSuccess,
     isError,
-    error,
   } = useGetArticleQuery(slug);
 
   let content;
@@ -28,7 +28,7 @@ const ArticlePage = () => {
       );
     }
   } else if (isError) {
-    content = <p>{JSON.stringify(error)}</p>;
+    content = <Missing/>;
   }
 
   return content;

@@ -55,7 +55,6 @@ function SettingsForm() {
   const logoutHandler = async () => {
     await logout();
     dispatch(userActions.logout());
-    localStorage.removeItem('persist');
     setAuth({});
     navigate('/login', { replace: true });
   };

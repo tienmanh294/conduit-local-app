@@ -50,6 +50,11 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Follows' }, { type: 'User' }, { type: 'Articles', id: 'LIST' }, { type: 'Comments', id: 'LIST' }],
     }),
+    getRefresh: builder.query({
+      query: () => '/users/refresh',
+      providesTags: ['Me'],
+      keepUnusedDataFor: 60 * 60 * 24,
+    }),
   }),
 });
 
@@ -61,4 +66,5 @@ export const {
   useGetUserByNameQuery,
   useFollowUserMutation,
   useUploadImageMutation,
+  useGetRefreshQuery,
 } = usersApiSlice;

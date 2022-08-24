@@ -28,16 +28,18 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<LayoutRoute />}>
+          {/* <Route path="/" element={<HomePage />} /> */}
           <Route path="login/*" element={<LoginPage />} />
           <Route path="register/*" element={<RegisterPage />} />
           <Route path="unauthorized" element={<Unauthorized />} />
+          
           <Route element={<PersistLogin />}>
             {/* <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
               <Route path="article/:slug" element={<ArticlePage />} />
             </Route> */}
-            <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-              <Route path="/" element={<HomePage />} />
-            </Route>
+            
+            <Route path="/" element={<HomePage />} />
+            
             <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
               <Route path="editor" element={<NewArticlePage />} />
             </Route>
@@ -47,12 +49,8 @@ function App() {
             <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
               <Route path="settings" element={<SettingsPage />} />
             </Route>
-            <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-              <Route path="/:userID/*" element={<ProfilePage />} />
-            </Route>
-            <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-              <Route path="article/:slug" element={<ArticlePage />} />
-            </Route>
+            <Route path="/:userID/*" element={<ProfilePage />} />
+            <Route path="article/:slug" element={<ArticlePage />} />
             <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
               <Route path="admin" element={<AdminPage />} />
             </Route>
@@ -60,7 +58,7 @@ function App() {
               <Route path="video" element={<NewVideoArticlePage />} />
             </Route>
           </Route>
-          <Route path="/:userID/*" element={<ProfilePage />} />
+          {/* <Route path="/:userID/*" element={<ProfilePage />} /> */}
           <Route path="*" element={<Missing />} />
         </Route>
       </Routes>
